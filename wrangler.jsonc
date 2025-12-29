@@ -1,6 +1,6 @@
 {
     "name": "cloudflare-worker",
-    "compatibility_date": "2025-01-01",
+    "compatibility_date": "2025-12-12",
     "compatibility_flags": ["nodejs_compat", "enable_nodejs_http_server_modules", "enable_nodejs_http_modules"],
     "main": "src/server.js",
   "observability": {

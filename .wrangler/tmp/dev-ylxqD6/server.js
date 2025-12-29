@@ -15,16 +15,6 @@ function notImplemented(name) {
   return Object.assign(fn, { __unenv__: true });
 }
 __name(notImplemented, "notImplemented");
-// @__NO_SIDE_EFFECTS__
-function notImplementedClass(name) {
-  return class {
-    __unenv__ = true;
-    constructor() {
-      throw new Error(`[unenv] ${name} is not implemented yet!`);
-    }
-  };
-}
-__name(notImplementedClass, "notImplementedClass");
 
 // node_modules/unenv/dist/runtime/node/internal/perf_hooks/performance.mjs
 var _timeOrigin = globalThis.performance?.timeOrigin ?? Date.now();
@@ -274,89 +264,6 @@ globalThis.PerformanceObserver = PerformanceObserver;
 globalThis.PerformanceObserverEntryList = PerformanceObserverEntryList;
 globalThis.PerformanceResourceTiming = PerformanceResourceTiming;
 
-// node_modules/unenv/dist/runtime/node/console.mjs
-import { Writable } from "node:stream";
-
-// node_modules/unenv/dist/runtime/mock/noop.mjs
-var noop_default = Object.assign(() => {
-}, { __unenv__: true });
-
-// node_modules/unenv/dist/runtime/node/console.mjs
-var _console = globalThis.console;
-var _ignoreErrors = true;
-var _stderr = new Writable();
-var _stdout = new Writable();
-var log = _console?.log ?? noop_default;
-var info = _console?.info ?? log;
-var trace = _console?.trace ?? info;
-var debug = _console?.debug ?? log;
-var table = _console?.table ?? log;
-var error = _console?.error ?? log;
-var warn = _console?.warn ?? error;
-var createTask = _console?.createTask ?? /* @__PURE__ */ notImplemented("console.createTask");
-var clear = _console?.clear ?? noop_default;
-var count = _console?.count ?? noop_default;
-var countReset = _console?.countReset ?? noop_default;
-var dir = _console?.dir ?? noop_default;
-var dirxml = _console?.dirxml ?? noop_default;
-var group = _console?.group ?? noop_default;
-var groupEnd = _console?.groupEnd ?? noop_default;
-var groupCollapsed = _console?.groupCollapsed ?? noop_default;
-var profile = _console?.profile ?? noop_default;
-var profileEnd = _console?.profileEnd ?? noop_default;
-var time = _console?.time ?? noop_default;
-var timeEnd = _console?.timeEnd ?? noop_default;
-var timeLog = _console?.timeLog ?? noop_default;
-var timeStamp = _console?.timeStamp ?? noop_default;
-var Console = _console?.Console ?? /* @__PURE__ */ notImplementedClass("console.Console");
-var _times = /* @__PURE__ */ new Map();
-var _stdoutErrorHandler = noop_default;
-var _stderrErrorHandler = noop_default;
-
-// node_modules/@cloudflare/unenv-preset/dist/runtime/node/console.mjs
-var workerdConsole = globalThis["console"];
-var {
-  assert,
-  clear: clear2,
-  // @ts-expect-error undocumented public API
-  context,
-  count: count2,
-  countReset: countReset2,
-  // @ts-expect-error undocumented public API
-  createTask: createTask2,
-  debug: debug2,
-  dir: dir2,
-  dirxml: dirxml2,
-  error: error2,
-  group: group2,
-  groupCollapsed: groupCollapsed2,
-  groupEnd: groupEnd2,
-  info: info2,
-  log: log2,
-  profile: profile2,
-  profileEnd: profileEnd2,
-  table: table2,
-  time: time2,
-  timeEnd: timeEnd2,
-  timeLog: timeLog2,
-  timeStamp: timeStamp2,
-  trace: trace2,
-  warn: warn2
-} = workerdConsole;
-Object.assign(workerdConsole, {
-  Console,
-  _ignoreErrors,
-  _stderr,
-  _stderrErrorHandler,
-  _stdout,
-  _stdoutErrorHandler,
-  _times
-});
-var console_default = workerdConsole;
-
-// node_modules/wrangler/_virtual_unenv_global_polyfill-@cloudflare-unenv-preset-node-console
-globalThis.console = console_default;
-
 // node_modules/unenv/dist/runtime/node/internal/process/hrtime.mjs
 var hrtime = /* @__PURE__ */ Object.assign(/* @__PURE__ */ __name(function hrtime2(startTime) {
   const now = Date.now();
@@ -408,7 +315,7 @@ var WriteStream = class {
   constructor(fd) {
     this.fd = fd;
   }
-  clearLine(dir3, callback) {
+  clearLine(dir, callback) {
     callback && callback();
     return false;
   }
@@ -427,7 +334,7 @@ var WriteStream = class {
   getColorDepth(env2) {
     return 1;
   }
-  hasColors(count3, env2) {
+  hasColors(count, env2) {
     return false;
   }
   getWindowSize() {
@@ -714,7 +621,7 @@ var {
   _maxListeners,
   _pendingMessage,
   _send,
-  assert: assert2,
+  assert,
   disconnect,
   mainModule
 } = unenvProcess;
@@ -901,7 +808,7 @@ var _process = {
   moduleLoadList,
   reallyExit,
   openStdin,
-  assert: assert2,
+  assert,
   binding,
   send,
   exitCode,
@@ -947,91 +854,16 @@ globalThis.process = process_default;
 
 // src/server.js
 import { createServer } from "node:http";
-import { handleAsNodeRequest } from "cloudflare:node";
-
-// node_modules/unenv/dist/runtime/node/internal/fs/promises.mjs
-var access = /* @__PURE__ */ notImplemented("fs.access");
-var copyFile = /* @__PURE__ */ notImplemented("fs.copyFile");
-var cp = /* @__PURE__ */ notImplemented("fs.cp");
-var open = /* @__PURE__ */ notImplemented("fs.open");
-var opendir = /* @__PURE__ */ notImplemented("fs.opendir");
-var rename = /* @__PURE__ */ notImplemented("fs.rename");
-var truncate = /* @__PURE__ */ notImplemented("fs.truncate");
-var rm = /* @__PURE__ */ notImplemented("fs.rm");
-var rmdir = /* @__PURE__ */ notImplemented("fs.rmdir");
-var mkdir = /* @__PURE__ */ notImplemented("fs.mkdir");
-var readdir = /* @__PURE__ */ notImplemented("fs.readdir");
-var readlink = /* @__PURE__ */ notImplemented("fs.readlink");
-var symlink = /* @__PURE__ */ notImplemented("fs.symlink");
-var lstat = /* @__PURE__ */ notImplemented("fs.lstat");
-var stat = /* @__PURE__ */ notImplemented("fs.stat");
-var link = /* @__PURE__ */ notImplemented("fs.link");
-var unlink = /* @__PURE__ */ notImplemented("fs.unlink");
-var chmod = /* @__PURE__ */ notImplemented("fs.chmod");
-var lchmod = /* @__PURE__ */ notImplemented("fs.lchmod");
-var lchown = /* @__PURE__ */ notImplemented("fs.lchown");
-var chown = /* @__PURE__ */ notImplemented("fs.chown");
-var utimes = /* @__PURE__ */ notImplemented("fs.utimes");
-var lutimes = /* @__PURE__ */ notImplemented("fs.lutimes");
-var realpath = /* @__PURE__ */ notImplemented("fs.realpath");
-var mkdtemp = /* @__PURE__ */ notImplemented("fs.mkdtemp");
-var writeFile = /* @__PURE__ */ notImplemented("fs.writeFile");
-var appendFile = /* @__PURE__ */ notImplemented("fs.appendFile");
-var readFile = /* @__PURE__ */ notImplemented("fs.readFile");
-var statfs = /* @__PURE__ */ notImplemented("fs.statfs");
-
-// node_modules/unenv/dist/runtime/node/internal/fs/fs.mjs
-function callbackify(fn) {
-  const fnc = /* @__PURE__ */ __name(function(...args) {
-    const cb = args.pop();
-    fn().catch((error3) => cb(error3)).then((val) => cb(void 0, val));
-  }, "fnc");
-  fnc.__promisify__ = fn;
-  fnc.native = fnc;
-  return fnc;
-}
-__name(callbackify, "callbackify");
-var access2 = callbackify(access);
-var appendFile2 = callbackify(appendFile);
-var chown2 = callbackify(chown);
-var chmod2 = callbackify(chmod);
-var copyFile2 = callbackify(copyFile);
-var cp2 = callbackify(cp);
-var lchown2 = callbackify(lchown);
-var lchmod2 = callbackify(lchmod);
-var link2 = callbackify(link);
-var lstat2 = callbackify(lstat);
-var lutimes2 = callbackify(lutimes);
-var mkdir2 = callbackify(mkdir);
-var mkdtemp2 = callbackify(mkdtemp);
-var realpath2 = callbackify(realpath);
-var open2 = callbackify(open);
-var opendir2 = callbackify(opendir);
-var readdir2 = callbackify(readdir);
-var readFile2 = callbackify(readFile);
-var readlink2 = callbackify(readlink);
-var rename2 = callbackify(rename);
-var rm2 = callbackify(rm);
-var rmdir2 = callbackify(rmdir);
-var stat2 = callbackify(stat);
-var symlink2 = callbackify(symlink);
-var truncate2 = callbackify(truncate);
-var unlink2 = callbackify(unlink);
-var utimes2 = callbackify(utimes);
-var writeFile2 = callbackify(writeFile);
-var statfs2 = callbackify(statfs);
-
-// src/server.js
+import { handleAsNodeRequest, httpServerHandler } from "cloudflare:node";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-var hostname = "127.0.0.1";
-var port = 3e3;
 var ALLOWED_PATHS = ["/", "/index.html", "/blah"];
 var server = createServer((req, res) => {
   if (ALLOWED_PATHS.includes(req.url)) {
     const htmlPath = path.join("src/", req.url === "/" ? "/index.html" : req.url);
-    readFile2(htmlPath, (error3, data) => {
-      if (error3) {
+    readFileSync(htmlPath, (error, data) => {
+      if (error) {
         res.statusCode = 500;
         res.setHeader("Content-Type", "text/plain");
         res.end("Internal Server Error\n");
@@ -1043,9 +875,9 @@ var server = createServer((req, res) => {
     });
   } else {
     const htmlPath = path.join("src/", "404.html");
-    readFile2(htmlPath, (error3, data) => {
+    readFileSync(htmlPath, (error, data) => {
       res.statusCode = 404;
-      if (error3) {
+      if (error) {
         res.setHeader("Content-Type", "text/plain");
         res.end("Not Found\n");
         return;
@@ -1054,14 +886,8 @@ var server = createServer((req, res) => {
     });
   }
 });
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-var server_default = {
-  fetch(request) {
-    return handleAsNodeRequest(port, request);
-  }
-};
+server.listen(8080);
+var server_default = httpServerHandler({ port: 8080 });
 
 // node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
 var drainBody = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx) => {
@@ -1095,8 +921,8 @@ var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx
   try {
     return await middlewareCtx.next(request, env2);
   } catch (e) {
-    const error3 = reduceError(e);
-    return Response.json(error3, {
+    const error = reduceError(e);
+    return Response.json(error, {
       status: 500,
       headers: { "MF-Experimental-Error-Stack": "true" }
     });
@@ -1104,7 +930,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-tt74v5/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-iUBogg/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1136,7 +962,7 @@ function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-tt74v5/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-iUBogg/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

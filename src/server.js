@@ -1,6 +1,6 @@
 import {createServer} from 'node:http';
-import {handleAsNodeRequest} from 'cloudflare:node'
-import {readFile} from 'node:fs';
+import {handleAsNodeRequest, httpServerHandler} from 'cloudflare:node'
+import {readFileSync} from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,7 +13,7 @@ const ALLOWED_PATHS = ['/', '/index.html', '/blah'];
 const server = createServer((req, res) => {
     if (ALLOWED_PATHS.includes(req.url)) {
         const htmlPath = path.join('src/', req.url === '/' ? '/index.html' : req.url);
-        readFile(htmlPath, (error, data) => {
+        readFileSync(htmlPath, (error, data) => {
             if (error) {
                 res.statusCode = 500;
                 res.setHeader('Content-Type', 'text/plain');
@@ -27,7 +27,7 @@ const server = createServer((req, res) => {
         });
     } else {
         const htmlPath = path.join('src/', '404.html');
-        readFile(htmlPath, (error, data) => {
+        readFileSync(htmlPath, (error, data) => {
             res.statusCode = 404;
             if (error) {
                 res.setHeader('Content-Type', 'text/plain');
@@ -41,12 +41,6 @@ const server = createServer((req, res) => {
     }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+server.listen(8080);
 
-export default {
-    fetch (request) {
-        return handleAsNodeRequest(port, request);
-    }
-}
+export default httpServerHandler({port: 8080});
