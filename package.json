@@ -1,0 +1,25 @@
+{
+  "name": "mother",
+  "version": "1.0.0",
+  "description": "personal website and playground",
+  "homepage": "https://github.com/escrimeuse/mother#readme",
+  "bugs": {
+    "url": "https://github.com/escrimeuse/mother/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/escrimeuse/mother.git"
+  },
+  "license": "ISC",
+  "author": "cathryn griffiths",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "wrangler": "^4.54.0"
+  }
+}
