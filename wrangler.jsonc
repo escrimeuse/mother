@@ -1,8 +1,11 @@
 {
-    "name": "cloudflare-worker",
-    "compatibility_date": "2025-12-12",
-    "compatibility_flags": ["nodejs_compat", "enable_nodejs_http_server_modules", "enable_nodejs_http_modules"],
-    "main": "src/server.js",
+  "name": "personal-website",
+  // We need to specify a compatibility date after 2026-09-01 to use the new Node.js compatible runtime
+  "compatibility_date": "2025-12-12",
+  // We need to specify these flags so that we can use the Node.js compatible runtime features
+  "compatibility_flags": ["nodejs_compat", "enable_nodejs_http_server_modules", "enable_nodejs_http_modules"],
+  // Our worker entry point
+  "main": "src/server.js",
   "observability": {
     "logs": {
       "enabled": true,
@@ -11,6 +14,8 @@
       "persist": true
     }
   },
+  // See https://developers.cloudflare.com/workers/static-assets/
+  // Need to specify this so that Wrangler can fetch assets from the correct directory
   "assets": {
     "directory": "./src/"
   }
