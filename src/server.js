@@ -2,15 +2,17 @@ import {createServer} from 'node:http';
 import {handleAsNodeRequest} from 'cloudflare:node'
 import {readFile} from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const ALLOWED_PATHS = ['/', '/index.html', '/blah'];
 
+
 const server = createServer((req, res) => {
     if (ALLOWED_PATHS.includes(req.url)) {
-        const htmlPath = path.join(__dirname, req.url === '/' ? '/index.html' : req.url);
+        const htmlPath = path.join('src/', req.url === '/' ? '/index.html' : req.url);
         readFile(htmlPath, (error, data) => {
             if (error) {
                 res.statusCode = 500;
@@ -24,7 +26,7 @@ const server = createServer((req, res) => {
             res.end(data);
         });
     } else {
-        const htmlPath = path.join(__dirname, '404.html');
+        const htmlPath = path.join('src/', '404.html');
         readFile(htmlPath, (error, data) => {
             res.statusCode = 404;
             if (error) {

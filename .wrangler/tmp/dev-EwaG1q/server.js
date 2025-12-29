@@ -1023,12 +1023,13 @@ var statfs2 = callbackify(statfs);
 
 // src/server.js
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 var hostname = "127.0.0.1";
 var port = 3e3;
 var ALLOWED_PATHS = ["/", "/index.html", "/blah"];
 var server = createServer((req, res) => {
   if (ALLOWED_PATHS.includes(req.url)) {
-    const htmlPath = path.join(__dirname, req.url === "/" ? "/index.html" : req.url);
+    const htmlPath = path.join("src/", req.url === "/" ? "/index.html" : req.url);
     readFile2(htmlPath, (error3, data) => {
       if (error3) {
         res.statusCode = 500;
@@ -1041,7 +1042,7 @@ var server = createServer((req, res) => {
       res.end(data);
     });
   } else {
-    const htmlPath = path.join(__dirname, "404.html");
+    const htmlPath = path.join("src/", "404.html");
     readFile2(htmlPath, (error3, data) => {
       res.statusCode = 404;
       if (error3) {
@@ -1103,7 +1104,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env2, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-KCMi6o/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-tt74v5/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1135,7 +1136,7 @@ function __facade_invoke__(request, env2, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-KCMi6o/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-tt74v5/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
