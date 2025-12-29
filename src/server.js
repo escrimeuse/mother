@@ -1,6 +1,7 @@
-const {createServer} = require('node:http');
-const fs = require('node:fs');
-const path = require('node:path');
+import {createServer} from 'node:http';
+import {handleAsNodeRequest} from 'cloudflare:node'
+import {readFile} from 'node:fs';
+import path from 'node:path';
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -10,7 +11,7 @@ const ALLOWED_PATHS = ['/', '/index.html', '/blah'];
 const server = createServer((req, res) => {
     if (ALLOWED_PATHS.includes(req.url)) {
         const htmlPath = path.join(__dirname, req.url === '/' ? '/index.html' : req.url);
-        fs.readFile(htmlPath, (error, data) => {
+        readFile(htmlPath, (error, data) => {
             if (error) {
                 res.statusCode = 500;
                 res.setHeader('Content-Type', 'text/plain');
@@ -24,7 +25,7 @@ const server = createServer((req, res) => {
         });
     } else {
         const htmlPath = path.join(__dirname, '404.html');
-        fs.readFile(htmlPath, (error, data) => {
+        readFile(htmlPath, (error, data) => {
             res.statusCode = 404;
             if (error) {
                 res.setHeader('Content-Type', 'text/plain');
@@ -41,3 +42,9 @@ const server = createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+export default {
+    fetch (request) {
+        return handleAsNodeRequest(port, request);
+    }
+}

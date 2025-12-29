@@ -12,11 +12,11 @@
   },
   "license": "ISC",
   "author": "cathryn griffiths",
-  "type": "commonjs",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
+    "start": "wrangler dev src/server.js",
     "deploy": "wrangler deploy"
   },
   "dependencies": {
