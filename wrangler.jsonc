@@ -1,0 +1,5 @@
+{
+    "name": "mother",
+    "compatibility_date": "2024-06-01",
+    "main": "src/server.js"
+}
