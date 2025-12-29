@@ -2,5 +2,13 @@
     "name": "cloudflare-worker",
     "compatibility_date": "2025-01-01",
     "compatibility_flags": ["nodejs_compat", "enable_nodejs_http_server_modules", "enable_nodejs_http_modules"],
-    "main": "src/server.js"
+    "main": "src/server.js",
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
 }
